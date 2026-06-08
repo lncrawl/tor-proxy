@@ -60,6 +60,22 @@ docker compose up -d
 docker compose up -d --build
 ```
 
+### Run without Compose
+
+```bash
+docker run -d \
+  --name tor-proxy \
+  --restart unless-stopped \
+  -e CONTROL_PASSWORD=changeme \
+  -p 127.0.0.1:9150:9150 \
+  -p 127.0.0.1:9151:9151 \
+  -v tor_data:/var/lib/tor \
+  sdipu/tor-proxy:latest
+```
+
+To persist state across restarts (faster re-bootstrap), the `-v tor_data:/var/lib/tor`
+volume is optional but recommended. Omit it if you don't need it.
+
 ### Verify the proxy works (takes ~30 s for Tor to bootstrap)
 
 ```bash
