@@ -1,8 +1,8 @@
 # tor-proxy
 
 [![Docker](https://github.com/lncrawl/tor-proxy/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/lncrawl/tor-proxy/actions/workflows/docker-publish.yml)
-[![Docker Pulls](https://img.shields.io/docker/pulls/lncrawl/tor-proxy)](https://hub.docker.com/r/lncrawl/tor-proxy)
-[![Image Size](https://img.shields.io/docker/image-size/lncrawl/tor-proxy/latest)](https://hub.docker.com/r/lncrawl/tor-proxy)
+[![Docker Pulls](https://img.shields.io/docker/pulls/sdipu/tor-proxy)](https://hub.docker.com/r/sdipu/tor-proxy)
+[![Image Size](https://img.shields.io/docker/image-size/sdipu/tor-proxy/latest)](https://hub.docker.com/r/sdipu/tor-proxy)
 
 A minimal, up-to-date Tor Docker image built on **Alpine**.  
 Exposes a SOCKS5 proxy (port **9150**) and a control port (port **9151**) so Python's
@@ -17,6 +17,7 @@ Exposes a SOCKS5 proxy (port **9150**) and a control port (port **9151**) so Pyt
 | `peterdavehello/tor-socks-proxy` | recent      | ❌ no             | active       |
 
 This image:
+
 - Installs Tor directly from Alpine's community repo — always the latest available version.
 - Hashes `CONTROL_PASSWORD` **at runtime** so no stale hash is ever baked in.
 - Supports multi-arch builds (`linux/amd64`, `linux/arm64`).
@@ -74,12 +75,12 @@ curl --socks5-hostname 127.0.0.1:9150 https://httpbin.org/ip
 
 All settings are environment variables. Copy `.env.example` to `.env` and edit:
 
-| Variable           | Default                    | Description                             |
-| ------------------ | -------------------------- | --------------------------------------- |
-| `CONTROL_PASSWORD` | `changeme`                 | Plain-text password — hashed at startup |
-| `SOCKS_HOST`       | `0.0.0.0`                  | SOCKS5 bind address inside container    |
-| `CONTROL_HOST`     | `0.0.0.0`                  | Control port bind address               |
-| `SOCKS_POLICY`     | RFC1918 ranges + loopback  | Comma-separated `accept IP/CIDR` rules  |
+| Variable           | Default                   | Description                             |
+| ------------------ | ------------------------- | --------------------------------------- |
+| `CONTROL_PASSWORD` | `changeme`                | Plain-text password — hashed at startup |
+| `SOCKS_HOST`       | `0.0.0.0`                 | SOCKS5 bind address inside container    |
+| `CONTROL_HOST`     | `0.0.0.0`                 | Control port bind address               |
+| `SOCKS_POLICY`     | RFC1918 ranges + loopback | Comma-separated `accept IP/CIDR` rules  |
 
 The hashed password is generated each time the container starts via:
 
@@ -156,7 +157,7 @@ Both ports are bound to `127.0.0.1` on the host by default (see `compose.yml`).
 ```bash
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
-  --tag lncrawl/tor-proxy:latest \
+  --tag sdipu/tor-proxy:latest \
   --push \
   ./docker
 ```

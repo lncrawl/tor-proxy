@@ -3,7 +3,7 @@ services:
     # Pull from Docker Hub / GHCR, or build locally — whichever you prefer.
     # To use the published image:  docker compose pull && docker compose up -d
     # To build locally:            docker compose up -d --build
-    image: lncrawl/tor-proxy:latest
+    image: sdipu/tor-proxy:latest
     build:
       context: ./docker
     container_name: tor-proxy
@@ -11,24 +11,24 @@ services:
     environment:
       # Plain-text password; gets hashed by entrypoint.sh at startup.
       # Keep this in a .env file or Docker secret in production.
-      CONTROL_PASSWORD: "${CONTROL_PASSWORD:-changeme}"
+      CONTROL_PASSWORD: '${CONTROL_PASSWORD:-changeme}'
 
       # SOCKS5 bind address inside the container.
       # Use 0.0.0.0 when your app container talks to this one over a
       # Docker network. Use 127.0.0.1 if you only call from the host.
-      SOCKS_HOST: "${SOCKS_HOST:-0.0.0.0}"
+      SOCKS_HOST: '${SOCKS_HOST:-0.0.0.0}'
 
       # Control port bind address inside the container.
-      CONTROL_HOST: "${CONTROL_HOST:-0.0.0.0}"
+      CONTROL_HOST: '${CONTROL_HOST:-0.0.0.0}'
 
       # Which source IPs may use the proxy.
-      SOCKS_POLICY: "${SOCKS_POLICY:-accept 127.0.0.1,accept 10.0.0.0/8,accept 172.16.0.0/12,accept 192.168.0.0/16}"
+      SOCKS_POLICY: '${SOCKS_POLICY:-accept 127.0.0.1,accept 10.0.0.0/8,accept 172.16.0.0/12,accept 192.168.0.0/16}'
 
     ports:
       # SOCKS5 proxy — your scraper connects here
-      - "127.0.0.1:9150:9150"
+      - '127.0.0.1:9150:9150'
       # Control port — stem connects here for circuit rotation
-      - "127.0.0.1:9151:9151"
+      - '127.0.0.1:9151:9151'
 
     # Optional: persist Tor's state so it doesn't re-bootstrap from scratch
     # on every container restart (faster startup after first run).
