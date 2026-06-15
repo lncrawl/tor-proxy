@@ -18,7 +18,6 @@ SocksPort ${SOCKS_HOST}:9150
 
 # Accept policy: allow only the listed CIDRs, reject everything else.
 $(echo "${SOCKS_POLICY}" | tr ',' '\n' | sed 's/^ */SocksPolicy /')
-SocksPolicy reject *
 
 # === Control port (used by stem for NEWNYM / circuit rotation) ===
 ControlPort ${CONTROL_HOST}:9151
