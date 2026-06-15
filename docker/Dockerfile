@@ -22,6 +22,6 @@ EXPOSE 9150 9151
 ENV CONTROL_PASSWORD="changeme" \
     SOCKS_HOST="0.0.0.0" \
     CONTROL_HOST="0.0.0.0" \
-    SOCKS_POLICY="accept 127.0.0.1,accept 10.0.0.0/8,accept 172.16.0.0/12,accept 192.168.0.0/16"
+    SOCKS_POLICY="accept 127.0.0.1,accept 10.0.0.0/8,accept 172.16.0.0/12,accept 192.168.0.0/16,reject *"
 
 ENTRYPOINT ["/entrypoint.sh"]
